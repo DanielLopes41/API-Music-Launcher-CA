@@ -1,0 +1,13 @@
+services:
+  postgres:
+    container_name: music-launcher-postgres
+    image: postgres:16
+    ports:
+      - "5433:5432"   # externa : interna
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: music_launcher
+      PGDATA: /data/postgres
+    volumes:
+      - ./data/pg:/data/postgres

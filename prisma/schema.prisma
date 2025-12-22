@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(uuid())
+  email     String   @unique
+  password  String
+
+  musics UserMusic[]
+  @@map("user")
+}
+
+model UserMusic {
+  userId  String
+  musicId String
+  addedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id])
+  music Music @relation(fields: [musicId], references: [id])
+
+  @@id([userId, musicId])
+  @@map("user_music")
+}
+
+model Music {
+  id            String @id @default(uuid())
+  title         String
+  thumbnailUrl  String
+  cloudinaryUrl String
+
+  users UserMusic[]
+
+  @@map("music")
+}
