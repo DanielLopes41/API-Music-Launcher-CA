@@ -137,7 +137,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\pvpao\\Desktop\\Own Projects\\API-Music-Launcher-fastify\\generated\\prisma",
+      "value": "C:\\Users\\pvpao\\Desktop\\Own-Projects\\API-Music-Launcher-CA\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -148,10 +148,14 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\pvpao\\Desktop\\Own Projects\\API-Music-Launcher-fastify\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\pvpao\\Desktop\\Own-Projects\\API-Music-Launcher-CA\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -165,6 +169,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -173,8 +178,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  email    String @unique\n  password String\n\n  musics UserMusic[]\n\n  @@map(\"user\")\n}\n\nmodel UserMusic {\n  userId  String\n  musicId String\n  addedAt DateTime @default(now())\n\n  user  User  @relation(fields: [userId], references: [id])\n  music Music @relation(fields: [musicId], references: [id])\n\n  @@id([userId, musicId])\n  @@map(\"user_music\")\n}\n\nmodel Music {\n  id            String @id @default(uuid())\n  title         String\n  thumbnailUrl  String\n  cloudinaryUrl String\n\n  users UserMusic[]\n\n  @@map(\"music\")\n}\n",
-  "inlineSchemaHash": "25f7513ad78e00d47a55fff5f31035909eeceb22485db9da7c8ca1ca38bac3db",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  email    String @unique\n  password String\n\n  musics UserMusic[]\n\n  @@map(\"user\")\n}\n\nmodel UserMusic {\n  userId  String\n  musicId String\n  addedAt DateTime @default(now())\n\n  user  User  @relation(fields: [userId], references: [id])\n  music Music @relation(fields: [musicId], references: [id])\n\n  @@id([userId, musicId])\n  @@map(\"user_music\")\n}\n\nmodel Music {\n  id            String @id @default(uuid())\n  title         String\n  thumbnailUrl  String\n  cloudinaryUrl String\n\n  users UserMusic[]\n\n  @@map(\"music\")\n}\n",
+  "inlineSchemaHash": "622da863421445a8164b27ee37cf8f4d5aad898bf39e9c6028fa0e0194762d22",
   "copyEngine": true
 }
 
@@ -214,6 +219,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

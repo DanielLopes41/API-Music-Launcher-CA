@@ -13,7 +13,6 @@ dist/
 # Prisma
 prisma/dev.db
 prisma/*.db
-prisma/migrations/
 
 # Logs
 logs/
