@@ -4,10 +4,10 @@ import os from 'os'
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
       cb(null, os.tmpdir())
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
       const ext = path.extname(file.originalname)
       const name = path.basename(file.originalname, ext)
       cb(null, `${name}-${Date.now()}${ext}`)
