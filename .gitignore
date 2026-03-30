@@ -14,6 +14,10 @@ dist/
 prisma/dev.db
 prisma/*.db
 
+# Prisma Generated Client
+generated/prisma/
+
 # Logs
 logs/
 *.log
+
