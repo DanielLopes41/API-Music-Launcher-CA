@@ -7,6 +7,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p . && tsc-alias -p tsconfig.json",
     "start": "node -r tsconfig-paths/register dist/server.js",
+    "test": "vitest run",
     "start:prod": "npm run build && node -r tsconfig-paths/register dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",

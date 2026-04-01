@@ -1,4 +1,4 @@
-import { InvalidCredentialsError } from '@/errors/user-alredy-exists-error'
+import { InvalidCredentialsError } from '@/errors/invalid-credentials-error'
 import { UserRepository } from '../../repositories/user-repository'
 import bcrypt from 'bcrypt'
 

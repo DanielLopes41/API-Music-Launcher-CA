@@ -11,7 +11,20 @@ export const envSchema = z.object({
   CLOUDINARY_API_SECRET: z.string(),
 })
 
-export const parsedEnv = envSchema.safeParse(process.env)
+const isTest = process.env.NODE_ENV === 'test'
+
+const testEnvDefaults = {
+  DATABASE_URL: 'postgresql://test:test@localhost:5432/test',
+  JWT_SECRET: 'test-secret',
+  COOKIE_SECRET: 'test-cookie-secret',
+  CLOUDINARY_CLOUD_NAME: 'test',
+  CLOUDINARY_API_KEY: 'test',
+  CLOUDINARY_API_SECRET: 'test',
+}
+
+const envToParse = isTest ? { ...testEnvDefaults, ...process.env } : process.env
+
+export const parsedEnv = envSchema.safeParse(envToParse)
 
 if (!parsedEnv.success) {
   console.error(parsedEnv.error.format())
