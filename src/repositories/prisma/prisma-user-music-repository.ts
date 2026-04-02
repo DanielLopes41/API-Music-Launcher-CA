@@ -1,6 +1,7 @@
 import { Prisma } from 'generated/prisma'
 import { prisma } from '@/config/prisma'
 import { UserMusicRepository } from '../user-music-repository'
+import { UserMusic } from '@/domain/entities/user-music'
 
 export class PrismaUserMusicRepository implements UserMusicRepository {
   async delete({
@@ -29,7 +30,7 @@ export class PrismaUserMusicRepository implements UserMusicRepository {
     }
   }
 
-  async create(data: Prisma.UserMusicUncheckedCreateInput) {
+  async create(data: { userId: string; musicId: string }): Promise<UserMusic> {
     try {
       const musicRelation = await prisma.userMusic.create({
         data: {

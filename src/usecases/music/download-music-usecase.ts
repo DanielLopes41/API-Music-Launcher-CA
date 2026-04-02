@@ -10,7 +10,7 @@ export class DownloadUseCase {
     private musicRepository: MusicRepository,
     private userRepository: UserRepository,
     private userMusicRepository: UserMusicRepository,
-  ) {}
+  ) { }
 
   async execute({ url, userId }: { url: string; userId: string }) {
     const user = await this.userRepository.findById(userId)
@@ -34,7 +34,6 @@ export class DownloadUseCase {
     if (!music) {
       music = await this.musicRepository.create({
         title: `music_${Date.now()}`,
-        // Temporary while I don't find a YouTube API
         cloudinaryUrl: videoUrl,
         thumbnailUrl:
           'https://media.istockphoto.com/id/1215540461/pt/vetorial/3d-headphones-on-sound-wave-background-colorful-abstract-visualization-of-digital-sound.jpg?s=612x612',
@@ -42,7 +41,7 @@ export class DownloadUseCase {
     }
 
     await this.userMusicRepository.create({
-      userId: user.id,
+      userId: user.id!,
       musicId: music.id,
     })
 
