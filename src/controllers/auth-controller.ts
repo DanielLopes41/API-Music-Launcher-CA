@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import z, { ZodError } from 'zod'
 import { makeLoginUseCase } from '@/factories/make-login-use-case'
 import { NotAllowedError } from '@/errors/not-allowed-error'
-import { InvalidCredentialsError } from '@/errors/user-alredy-exists-error'
+import { InvalidCredentialsError } from '@/errors/invalid-credentials-error'
 import { AlreadyExistsUserError } from '@/errors/already-exists-user-error'
 import { makeCreateUserUseCase } from '@/factories/make-create-use-case'
 

@@ -1,7 +1,8 @@
-import { Prisma, User } from 'generated/prisma'
-import { UserRepository } from '../user-repository'
 import { prisma } from '@/config/prisma'
-import { UserAlreadyExistsError } from '@/errors/invalid-credentials-error'
+import { UserRepository } from '../user-repository'
+import { AlreadyExistsUserError } from '../../errors/already-exists-user-error'
+import { User } from '@/domain/entities/user'
+import { CreateUserDTO } from '@/domain/dtos/create-user-dto'
 
 export class PrismaUserRepository implements UserRepository {
   async findById(id: string): Promise<User | null> {
@@ -28,11 +29,11 @@ export class PrismaUserRepository implements UserRepository {
     return user
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: CreateUserDTO): Promise<User> {
     const userWithSameEmail = await this.findByEmail(data.email)
 
     if (userWithSameEmail) {
-      throw new UserAlreadyExistsError()
+      throw new AlreadyExistsUserError()
     }
     const user = await prisma.user.create({
       data: {

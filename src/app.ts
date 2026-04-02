@@ -1,19 +1,16 @@
 import Fastify from 'fastify'
 import dotenv from 'dotenv'
-
 import fastifyCors from '@fastify/cors'
 import fastifyMultipart from '@fastify/multipart'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
-
 import { env } from './config/env'
 import { UserRoutes } from './routes/user'
 import { MusicRoutes } from './routes/music'
+
 dotenv.config()
 
 export const app = Fastify({ logger: true })
-
-export const globalSaltRounds = 8
 
 app.register(fastifyCors, {
   origin: '*',

@@ -1,9 +1,10 @@
-import { Music, Prisma } from 'generated/prisma'
 import { prisma } from '@/config/prisma'
 import { MusicRepository } from '../music-repository'
+import { Music } from '@/domain/entities/music'
+import { CreateMusicDTO } from '@/domain/dtos/create-music-dto'
 
 export class PrismaMusicRepository implements MusicRepository {
-  async findById(id: string) {
+  async findById(id: string): Promise<Music | null> {
     const music = await prisma.music.findUnique({
       where: { id },
     })
@@ -11,7 +12,7 @@ export class PrismaMusicRepository implements MusicRepository {
     return music
   }
 
-  async fetchByUserId(userId: string) {
+  async fetchByUserId(userId: string): Promise<Music[]> {
     const musics = await prisma.music.findMany({
       where: {
         users: {
@@ -25,7 +26,7 @@ export class PrismaMusicRepository implements MusicRepository {
     return musics
   }
 
-  async findByCloudinaryUrl(url: string) {
+  async findByCloudinaryUrl(url: string): Promise<Music | null> {
     const music = await prisma.music.findFirst({
       where: {
         cloudinaryUrl: url,
@@ -43,7 +44,7 @@ export class PrismaMusicRepository implements MusicRepository {
     return musics
   }
 
-  async create(data: Prisma.MusicCreateInput): Promise<Music> {
+  async create(data: CreateMusicDTO): Promise<Music> {
     const music = await prisma.music.create({
       data: {
         title: data.title,

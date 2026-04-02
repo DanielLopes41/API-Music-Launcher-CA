@@ -1,6 +1,6 @@
 import { UserRepository } from '../../repositories/user-repository'
 import { hash } from 'bcrypt'
-import { globalSaltRounds } from '../../app'
+import { globalSaltRounds } from '../../config/constants'
 
 interface CreateUserProps {
   email: string
